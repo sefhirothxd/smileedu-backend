@@ -2,7 +2,7 @@ import { pool } from "../database/connection.js";
 
 const findAll = async () => {
   const result = await pool.query("SELECT * FROM persona");
-  return result?.rows | [];
+  return result?.rows;
 };
 
 const createAlumno = async (alumno) => {
