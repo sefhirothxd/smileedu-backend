@@ -26,9 +26,9 @@ const createRegalo = async (req, res) => {
   }
 };
 
-const deleteRegalo = async (req, res) => {
+const updateRegalo = async (req, res) => {
   try {
-    const response = await regaloModel.deleteRegalo(req.params.id);
+    const response = await regaloModel.updateRegalo(req.params.id);
     res.json(response);
   } catch (error) {
     console.log(error);
@@ -39,5 +39,6 @@ export const regaloController = {
   getRegalos,
   createRegalo,
   getRegalosList,
+  updateRegalo,
 };
 // Path: routes/Regalo.routes.js
