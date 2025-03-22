@@ -1,14 +1,23 @@
-import "dotenv/config";
-import pkg from 'pg'
+import 'dotenv/config';
+import pkg from 'pg';
 
-const { Pool, Client } = pkg;
+const { Pool } = pkg;
+
+// Crear el pool de conexión
 export const pool = new Pool({
-  allowExitOnIdle: true,
-})
+	connectionString: process.env.DATABASE_URL,
+	ssl: {
+		rejectUnauthorized: false, // Necesario para Supabase
+	},
+	allowExitOnIdle: true,
+});
 
-try {
-    await pool.query('SELECT NOW()')
-  console.log('Database connected')
-} catch (error) {
-    console.log(error)
-}
+// Probar la conexión
+(async () => {
+	try {
+		const res = await pool.query('SELECT NOW()');
+		console.log('Database connected at:', res.rows[0].now);
+	} catch (error) {
+		console.error('Database connection error:', error);
+	}
+})();
